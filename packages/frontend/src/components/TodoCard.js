@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { isOverdue } from '../utils/overdue';
 
 function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -54,7 +55,10 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
 
   const formatDate = (dateString) => {
     if (!dateString) return null;
-    const date = new Date(dateString);
+    // Parse as calendar-date components (not via `new Date(dateString)`, which
+    // treats "YYYY-MM-DD" as UTC midnight and can shift a day in negative-offset time zones).
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -124,6 +128,7 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
             Due: {formatDate(todo.dueDate)}
           </p>
         )}
+        {isOverdue(todo) && <span className="todo-overdue">Overdue</span>}
       </div>
 
       <div className="todo-actions">

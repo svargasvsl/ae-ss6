@@ -20,7 +20,7 @@ validated independently per the plan's Constitution Check.
 **Purpose**: No new project setup is required — this feature only adds files inside the existing
 `packages/frontend` package.
 
-- [ ] T001 Confirm frontend dev/test environment works: `npm run install:all` then
+- [x] T001 Confirm frontend dev/test environment works: `npm run install:all` then
       `npm test --workspace=packages/frontend` (baseline, should pass before changes)
 
 ---
@@ -31,11 +31,11 @@ validated independently per the plan's Constitution Check.
 
 **⚠️ CRITICAL**: Must be complete before Phase 3/4 work begins
 
-- [ ] T002 Create `packages/frontend/src/utils/overdue.js` exporting
+- [x] T002 Create `packages/frontend/src/utils/overdue.js` exporting
       `isOverdue(todo, referenceDate = new Date())`, comparing calendar days per the
       Clarifications (due date must be strictly before the reference date's calendar day; returns
       `false` if `todo.completed` is truthy or `todo.dueDate` is null/undefined)
-- [ ] T003 [P] Create `packages/frontend/src/utils/__tests__/overdue.test.js` with cases: due
+- [x] T003 [P] Create `packages/frontend/src/utils/__tests__/overdue.test.js` with cases: due
       yesterday + incomplete → true; due today + incomplete → false; due tomorrow → false; no due
       date → false; due yesterday + completed → false (write first, confirm they fail against a
       stub, per Test-First Quality)
@@ -54,17 +54,17 @@ do not.
 
 ### Tests for User Story 1
 
-- [ ] T004 [P] [US1] Extend `packages/frontend/src/components/__tests__/TodoCard.test.js` with
+- [x] T004 [P] [US1] Extend `packages/frontend/src/components/__tests__/TodoCard.test.js` with
       cases asserting the "Overdue" label renders for a past-due incomplete todo fixture and does
       NOT render for due-today, due-future, no-due-date, and completed-past-due fixtures (write
       first; confirm they fail before T005-T006)
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Import `isOverdue` in `packages/frontend/src/components/TodoCard.js` and
+- [x] T005 [US1] Import `isOverdue` in `packages/frontend/src/components/TodoCard.js` and
       conditionally render an `<span className="todo-overdue">Overdue</span>` label next to the
       due date when `isOverdue(todo)` is true (depends on T002)
-- [ ] T006 [US1] Add `.todo-overdue` styling to `packages/frontend/src/App.css` (near the existing
+- [x] T006 [US1] Add `.todo-overdue` styling to `packages/frontend/src/App.css` (near the existing
       `.todo-due-date` rule) using `var(--danger-color)` for text/border color, matching the
       spacing/typography scale already used for `.todo-due-date` (Caption size, per
       `docs/ui-guidelines.md`)
@@ -86,13 +86,13 @@ the next render (quickstart.md Scenario 5).
 
 ### Tests for User Story 2
 
-- [ ] T007 [P] [US2] Add a `TodoCard.test.js` case: rendering the same past-due todo fixture with
+- [x] T007 [P] [US2] Add a `TodoCard.test.js` case: rendering the same past-due todo fixture with
       `completed: true` shows no "Overdue" label (confirms FR-003/FR-006); add a case simulating a
       due-date edit from future to past and re-render, confirming the label now appears
 
 ### Implementation for User Story 2
 
-- [ ] T008 [US2] Verify no memoization/caching in `TodoCard.js` or `TodoList.js` prevents
+- [x] T008 [US2] Verify no memoization/caching in `TodoCard.js` or `TodoList.js` prevents
       `isOverdue` from being recomputed on every render (it is a plain function call, not stored
       state, so no caching-invalidation code should be needed — this task is a verification/code
       review step, not new logic, per the plan's "no stored state" decision)
@@ -106,11 +106,11 @@ set (1-6) passes.
 
 **Purpose**: Final validation across both stories
 
-- [ ] T009 [P] Run full frontend test suite: `npm test --workspace=packages/frontend` — confirm no
+- [x] T009 [P] Run full frontend test suite: `npm test --workspace=packages/frontend` — confirm no
       regressions in unrelated components
-- [ ] T010 Manually execute all 6 scenarios in [quickstart.md](./quickstart.md) against
+- [x] T010 Manually execute all 6 scenarios in [quickstart.md](./quickstart.md) against
       `npm start`
-- [ ] T011 Review changed files against `docs/coding-guidelines.md` checklist (naming, DRY, no
+- [x] T011 Review changed files against `docs/coding-guidelines.md` checklist (naming, DRY, no
       leftover `console.log`, single responsibility) before opening a pull request
 
 ---
